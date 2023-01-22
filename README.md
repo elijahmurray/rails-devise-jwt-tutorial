@@ -146,7 +146,7 @@ Add the following lines to devise.rb
 
 ```rb
 config.jwt do |jwt|
-    jwt.secret = Rails.application.credentials.fetch(:secret_key_base)
+    jwt.secret = Rails.application.secret_key_base
     jwt.dispatch_requests = [
       ['POST', %r{^/login$}]
     ]
