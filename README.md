@@ -338,6 +338,15 @@ end
 ```
 Adding the `before_action :authenticate_user` will ensure that we only see a 200 response if we have a valid JWT in the headers. If we don't this endpoint should return a `401` status code.
 
+## Note for Rails 7
+You will get an error, `ActionDispatch::Request::Session::DisabledSessionError` on Rails 7 if you don't add the below to your `config/application.rb`
+
+```
+config.session_store :cookie_store, key: '_interslice_session'
+    config.middleware.use ActionDispatch::Cookies
+    config.middleware.use config.session_store, config.session_options
+```
+
 ## Note for React Users
 
 If you're going to use this api with a React application, you may want to set the default port to 3001 so that it won't conflict with the react dev server. If you set the default to port for the API to 3001, you'll have consistency with the two ports when you run both servers simultaneously. If you don't do this, you'd always need to make sure you start the front end dev server before the backend one to make sure that the ports are consistent.
